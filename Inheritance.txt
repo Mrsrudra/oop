@@ -1,0 +1,104 @@
+class Employee {
+    String employee_name;
+    int emp_id;
+    String address;
+    long mobile;
+    String email;
+
+    Employee(String employee_name, String address, int emp_id, long mobile, String email) {
+        this.employee_name = employee_name;
+        this.emp_id = emp_id;
+        this.mobile = mobile;
+        this.email = email;
+        this.address = address;
+    }
+
+    public void display() {
+        System.out.println("Employee Name: " + employee_name);
+        System.out.println("Employee ID: " + emp_id);
+        System.out.println("Address: " + address);
+        System.out.println("Mobile No: " + mobile);
+        System.out.println("Email: " + email);
+    }
+}
+
+class Programmer extends Employee {
+    double basicpay;
+
+    Programmer(String employee_name, String address, int emp_id, long mobile, String email, double basicpay) {
+        super(employee_name, address, emp_id, mobile, email);
+        this.basicpay = basicpay;
+    }
+
+    public void payslip() {
+        double da = 0.97 * basicpay;
+        double hra = 0.1 * basicpay;
+        double gross = da + hra + basicpay;
+        double netGrossSalary = gross - (0.001 * basicpay);
+
+        System.out.println("\nPayslip of Programmer:");
+        display();
+        System.out.println("DA: " + da);
+        System.out.println("HRA: " + hra);
+        System.out.println("Gross Salary: " + gross);
+        System.out.println("Net Gross Salary: " + netGrossSalary);
+    }
+}
+
+class Assistantprofessor extends Employee {
+    double basicpay;
+
+    Assistantprofessor(String employee_name, String address, int emp_id, long mobile, String email, double basicpay) {
+        super(employee_name, address, emp_id, mobile, email);
+        this.basicpay = basicpay;
+    }
+
+    public void payslip() {
+        double da = 0.97 * basicpay;
+        double hra = 0.1 * basicpay;
+        double gross = da + hra + basicpay;
+        double netGrossSalary = gross - (0.001 * basicpay);
+
+        System.out.println("\nPayslip of Assistant Professor:");
+        display();
+        System.out.println("DA: " + da);
+        System.out.println("HRA: " + hra);
+        System.out.println("Gross Salary: " + gross);
+        System.out.println("Net Gross Salary: " + netGrossSalary);
+    }
+}
+
+class Associateprofessor extends Employee {
+    double basicpay;
+
+    Associateprofessor(String employee_name, String address, int emp_id, long mobile, String email, double basicpay) {
+        super(employee_name, address, emp_id, mobile, email);
+        this.basicpay = basicpay;
+    }
+
+    public void payslip() {
+        double da = 0.97 * basicpay;
+        double hra = 0.1 * basicpay;
+        double gross = da + hra + basicpay;
+        double netGrossSalary = gross - (0.001 * basicpay);
+
+        System.out.println("\nPayslip of Associate Professor:");
+        display();
+        System.out.println("DA: " + da);
+        System.out.println("HRA: " + hra);
+        System.out.println("Gross Salary: " + gross);
+        System.out.println("Net Gross Salary: " + netGrossSalary);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Programmer p1 = new Programmer("Pratik", "Kopare", 123, 2345678901L, "pratik@example.com", 50000);
+        Assistantprofessor a1 = new Assistantprofessor("Aditya", "Nagar", 124, 9876543210L, "aditya@example.com", 55000);
+        Associateprofessor a2 = new Associateprofessor("Om", "Pune", 345, 8765432109L, "om@example.com", 60000);
+
+        p1.payslip();
+        a1.payslip();
+        a2.payslip();
+    }
+}
