@@ -1,0 +1,124 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+struct Student {
+    int rollNumber;
+    string name;
+    string division;
+    string address;
+};
+
+// Function to add a student record to the file
+void addStudent() {
+    Student student;
+    ofstream outFile("students.dat", ios::app | ios::binary);
+
+    if (!outFile) {
+        cerr << "Error opening file for writing!" << endl;
+        return;
+    }
+
+    cout << "Enter Roll Number: ";
+    cin >> student.rollNumber;
+    cin.ignore(); // Clear newline character from the input buffer
+    cout << "Enter Name: ";
+    getline(cin, student.name);
+    cout << "Enter Division: ";
+    getline(cin, student.division);
+    cout << "Enter Address: ";
+    getline(cin, student.address);
+
+    outFile.write((char*)&student, sizeof(Student));
+    outFile.close();
+    cout << "Student record added successfully!" << endl;
+}
+
+// Function to search for a student record by roll number
+void searchStudent() {
+    Student student;
+    ifstream inFile("students.dat", ios::in | ios::binary);
+
+    if (!inFile) {
+        cerr << "Error opening file for reading!" << endl;
+        return;
+    }
+
+    int roll;
+    cout << "Enter Roll Number to search: ";
+    cin >> roll;
+
+    bool found = false;
+    while (inFile.read((char*)&student, sizeof(Student))) {
+        if (student.rollNumber == roll) {
+            cout << "Record Found:" << endl;
+            cout << "Roll Number: " << student.rollNumber << endl;
+            cout << "Name: " << student.name << endl;
+            cout << "Division: " << student.division << endl;
+            cout << "Address: " << student.address << endl;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "No record found with Roll Number " << roll << endl;
+    }
+
+    inFile.close();
+}
+
+// Function to display all student records
+void displayStudents() {
+    Student student;
+    ifstream inFile("students.dat", ios::in | ios::binary);
+
+    if (!inFile) {
+        cerr << "Error opening file for reading!" << endl;
+        return;
+    }
+
+    cout << "Student Records:" << endl;
+    while (inFile.read((char*)&student, sizeof(Student))) {
+        cout << "-------------------------" << endl;
+        cout << "Roll Number: " << student.rollNumber << endl;
+        cout << "Name: " << student.name << endl;
+        cout << "Division: " << student.division << endl;
+        cout << "Address: " << student.address << endl;
+    }
+
+    inFile.close();
+}
+
+int main() {
+    int choice;
+    do {
+        cout << "\n--- Student Database Menu ---" << endl;
+        cout << "1. Add Student" << endl;
+        cout << "2. Search Student" << endl;
+        cout << "3. Display All Students" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addStudent();
+                break;
+            case 2:
+                searchStudent();
+                break;
+            case 3:
+                displayStudents();
+                break;
+            case 4:
+                cout << "Exiting program." << endl;
+                break;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+    } while (choice != 4);
+
+    return 0;
+}
